@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowUpRight, MapPin, Menu, X, Mail, Phone, Youtube, Facebook, Instagram, Star } from "lucide-react";
-import logoAsset from "@/assets/splash.avif.asset.json";
+import logoAsset from "@/assets/logo.png.asset.json";
+import splashAsset from "@/assets/acupuncture.png.asset.json";
 
 const HERO = "https://static.wixstatic.com/media/b22899_bb12aa5960fe48378e80ea15f749f06b~mv2.jpg";
 
@@ -37,7 +38,7 @@ const L = {
   teaser: "https://momence.com/m/592133",
   acupuncture: "#", // [ACUPUNCTURE BOOKING LINK]
 };
-const LOGO = "https://static.wixstatic.com/media/b22899_3ee80528af18450e90724b0861ef2550~mv2.png";
+const LOGO = logoAsset.url;
 const ILL = {
   waves: "https://static.wixstatic.com/media/b22899_4c54296e1d2943dcad5c43858a534472~mv2.png",
   flipflops: "https://static.wixstatic.com/media/b22899_0d80c22d424a4c28aa3e382db458227e~mv2.png",
@@ -122,17 +123,11 @@ function Splash() {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/60 p-4 backdrop-blur-md animate-in fade-in duration-500" onClick={() => setOpen(false)}>
-      <div className="relative flex max-h-[92dvh] w-full max-w-md flex-col items-center gap-4 rounded-lg bg-cream p-4 shadow-2xl animate-in zoom-in-95 duration-500" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Community Acupuncture">
+      <div className="relative flex max-h-[92dvh] w-full max-w-3xl flex-col items-center gap-4 rounded-lg bg-cream p-4 shadow-2xl animate-in zoom-in-95 duration-500" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Community Acupuncture">
         <button onClick={() => setOpen(false)} aria-label="Close" className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-navy text-cream hover:bg-coral">
           <X className="h-4 w-4" />
         </button>
-        <div className="relative min-h-0 w-full overflow-hidden rounded-md">
-          <img src={`${W}b22899_aaa6502cef24471bbe094c45400a2e90~mv2.jpg`} alt="Community Acupuncture at Salty Dog" className="max-h-[60dvh] w-full object-cover" />
-          <div className="absolute inset-0 flex flex-col justify-end p-6 text-cream" style={{ background: "var(--gradient-card)" }}>
-            <p className="eyebrow text-seafoam">now at salty</p>
-            <h3 className="headline text-4xl">community acupuncture</h3>
-          </div>
-        </div>
+        <img src={splashAsset.url} alt="Community Acupuncture with Jenn Conte — 50-minute personalized session, pick your price ($30–$50), Sunday Oct 18th 11–2PM at Gather" className="max-h-[70dvh] w-full rounded-md object-contain" />
         <a href={L.acupuncture} {...ext} className="btn btn-coral w-full">Book Community Acupuncture</a>
       </div>
     </div>
