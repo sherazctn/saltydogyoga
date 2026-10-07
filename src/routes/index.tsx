@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowUpRight, MapPin, Menu, X, Mail, Phone, Youtube, Facebook, Instagram, Star } from "lucide-react";
+import { ArrowUpRight, MapPin, Menu, X, Mail, Phone, Youtube, Facebook, Instagram, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import logoAsset from "@/assets/logo.png.asset.json";
 import splashAsset from "@/assets/acupuncture.png.asset.json";
 
