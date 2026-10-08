@@ -6,6 +6,7 @@ import {
   EventsSection, Newsletter, Footer, MobileBar,
 } from "@/components/site";
 
+
 const HERO = "https://static.wixstatic.com/media/b22899_bb12aa5960fe48378e80ea15f749f06b~mv2.jpg";
 const SLIDES = [
   { src: HERO, alt: "Sunrise beach yoga class on Carolina Beach, NC" },
@@ -260,10 +261,10 @@ function Reformer() {
 function Events() {
   return (
     <div className="mx-auto max-w-7xl px-5">
-      <Reveal className="mb-2 flex flex-wrap items-end justify-between gap-4">
-        <div />
+      <Reveal className="mb-2 flex justify-end">
         <Link to="/classes" className="inline-flex items-center gap-1 text-sm font-semibold hover:text-coral">See full schedule <ArrowUpRight className="h-4 w-4" /></Link>
       </Reveal>
+      <EventsSection count={3} />
     </div>
   );
 }
