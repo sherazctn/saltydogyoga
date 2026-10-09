@@ -10,33 +10,80 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClassesRouteImport } from './routes/classes'
+import { Route as CoreReformerRouteImport } from './routes/core-reformer'
+import { Route as MembershipsRouteImport } from './routes/memberships'
+import { Route as PrivateSessionsRouteImport } from './routes/private-sessions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClassesRoute = ClassesRouteImport.update({
+  id: '/classes',
+  path: '/classes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoreReformerRoute = CoreReformerRouteImport.update({
+  id: '/core-reformer',
+  path: '/core-reformer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipsRoute = MembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivateSessionsRoute = PrivateSessionsRouteImport.update({
+  id: '/private-sessions',
+  path: '/private-sessions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/classes': typeof ClassesRoute
+  '/core-reformer': typeof CoreReformerRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-sessions': typeof PrivateSessionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/classes': typeof ClassesRoute
+  '/core-reformer': typeof CoreReformerRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-sessions': typeof PrivateSessionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/classes': typeof ClassesRoute
+  '/core-reformer': typeof CoreReformerRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-sessions': typeof PrivateSessionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/classes' | '/core-reformer' | '/memberships' | '/private-sessions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/classes' | '/core-reformer' | '/memberships' | '/private-sessions'
+  id:
+    | '__root__'
+    | '/'
+    | '/classes'
+    | '/core-reformer'
+    | '/memberships'
+    | '/private-sessions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClassesRoute: typeof ClassesRoute
+  CoreReformerRoute: typeof CoreReformerRoute
+  MembershipsRoute: typeof MembershipsRoute
+  PrivateSessionsRoute: typeof PrivateSessionsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +95,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/classes': {
+      id: '/classes'
+      path: '/classes'
+      fullPath: '/classes'
+      preLoaderRoute: typeof ClassesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/core-reformer': {
+      id: '/core-reformer'
+      path: '/core-reformer'
+      fullPath: '/core-reformer'
+      preLoaderRoute: typeof CoreReformerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memberships': {
+      id: '/memberships'
+      path: '/memberships'
+      fullPath: '/memberships'
+      preLoaderRoute: typeof MembershipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/private-sessions': {
+      id: '/private-sessions'
+      path: '/private-sessions'
+      fullPath: '/private-sessions'
+      preLoaderRoute: typeof PrivateSessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClassesRoute: ClassesRoute,
+  CoreReformerRoute: CoreReformerRoute,
+  MembershipsRoute: MembershipsRoute,
+  PrivateSessionsRoute: PrivateSessionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
