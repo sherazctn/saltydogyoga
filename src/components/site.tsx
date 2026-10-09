@@ -360,22 +360,27 @@ function parseEvents(json: unknown): Ev[] {
       if (Array.isArray(o[key])) { arr = o[key] as Record<string, unknown>[]; break; }
     }
   }
+  const pick = (e: Record<string, unknown>, keys: string[]) => {
+    for (const k of keys) if (e[k] != null) return e[k];
+    return undefined;
+  };
   return arr
-    .map((e) => {
-      const t = String(e?.title ?? e?.Title ?? e?.name ?? e?.Name ?? "").trim();
-      const startRaw = e?.start ?? e?.Start ?? e?.startDateTime ?? e?.startDate ?? e?.StartDate ?? e?.startAt;
+    .map((e): Ev => {
+      const t = String(pick(e, ["title", "Title", "name", "Name"]) ?? "").trim();
+      const startRaw = pick(e, ["start", "Start", "startDateTime", "startDate", "StartDate", "startAt"]);
       const d = startRaw ? new Date(String(startRaw)) : undefined;
-      const priceRaw = e?.price ?? e?.Price ?? e?.cost;
-      const urlRaw = e?.url ?? e?.Url ?? e?.registrationUrl ?? e?.bookingUrl;
-      const imgRaw = e?.image ?? e?.Image ?? e?.imageUrl ?? e?.imageUrlTemplate ?? e?.coverImage;
-      const loc = e?.location;
+      const priceRaw = pick(e, ["price", "Price", "cost"]);
+      const urlRaw = pick(e, ["url", "Url", "registrationUrl", "bookingUrl"]);
+      const imgRaw = pick(e, ["image", "Image", "imageUrl", "imageUrlTemplate", "coverImage"]);
+      const loc = pick(e, ["location"]);
+      const locName = typeof loc === "string" ? loc : loc && typeof loc === "object" ? String((loc as Record<string, unknown>)["name"] ?? "") : undefined;
       return {
         title: t,
-        date: d && !isNaN(d.getTime()) ? d : undefined,
-        location: typeof loc === "string" ? loc : loc && typeof loc === "object" ? String((loc as Record<string, unknown>).name ?? "") : undefined,
-        price: priceRaw != null ? String(priceRaw) : undefined,
-        url: typeof urlRaw === "string" && urlRaw.startsWith("http") ? urlRaw : undefined,
-        image: typeof imgRaw === "string" && imgRaw.startsWith("http") ? imgRaw : undefined,
+        ...(d && !isNaN(d.getTime()) ? { date: d } : {}),
+        ...(locName ? { location: locName } : {}),
+        ...(priceRaw != null ? { price: String(priceRaw) } : {}),
+        ...(typeof urlRaw === "string" && urlRaw.startsWith("http") ? { url: urlRaw } : {}),
+        ...(typeof imgRaw === "string" && imgRaw.startsWith("http") ? { image: imgRaw } : {}),
       };
     })
     .filter((e) => e.title);
@@ -411,7 +416,8 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
     return () => { dead = true; };
   }, [count]);
 
-  const shown: { m: string; d: string; t: string; time?: string; loc?: string; price?: string; img?: string; url: string }[] =
+  type Card = { m: string; d: string; t: string; time?: string; loc?: string; price?: string; img?: string; url: string };
+  const shown: Card[] =
     events === null
       ? []
       : fallback || events.length === 0
@@ -420,10 +426,10 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
             m: e.date ? e.date.toLocaleDateString("en-US", { month: "short" }).toUpperCase() : "—",
             d: e.date ? String(e.date.getDate()) : "·",
             t: e.title,
-            time: e.time,
-            loc: e.location,
-            price: e.price,
-            img: e.image,
+            ...(e.time ? { time: e.time } : {}),
+            ...(e.location ? { loc: e.location } : {}),
+            ...(e.price ? { price: e.price } : {}),
+            ...(e.image ? { img: e.image } : {}),
             url: e.url || M.momence,
           }));
 

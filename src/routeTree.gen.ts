@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as R200HourYttRouteImport } from './routes/200-hour-ytt'
+import { Route as ClassesRouteImport } from './routes/classes'
+import { Route as CoreReformerRouteImport } from './routes/core-reformer'
+import { Route as GatherRouteImport } from './routes/gather'
+import { Route as MembershipsRouteImport } from './routes/memberships'
+import { Route as PrivateSessionsRouteImport } from './routes/private-sessions'
+import { Route as RetreatsRouteImport } from './routes/retreats'
+import { Route as SaltyTvRouteImport } from './routes/salty-tv'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R200HourYttRoute = R200HourYttRouteImport.update({
+  id: '/200-hour-ytt',
+  path: '/200-hour-ytt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClassesRoute = ClassesRouteImport.update({
+  id: '/classes',
+  path: '/classes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoreReformerRoute = CoreReformerRouteImport.update({
+  id: '/core-reformer',
+  path: '/core-reformer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GatherRoute = GatherRouteImport.update({
+  id: '/gather',
+  path: '/gather',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipsRoute = MembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivateSessionsRoute = PrivateSessionsRouteImport.update({
+  id: '/private-sessions',
+  path: '/private-sessions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RetreatsRoute = RetreatsRouteImport.update({
+  id: '/retreats',
+  path: '/retreats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SaltyTvRoute = SaltyTvRouteImport.update({
+  id: '/salty-tv',
+  path: '/salty-tv',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/200-hour-ytt': typeof R200HourYttRoute
+  '/classes': typeof ClassesRoute
+  '/core-reformer': typeof CoreReformerRoute
+  '/gather': typeof GatherRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-sessions': typeof PrivateSessionsRoute
+  '/retreats': typeof RetreatsRoute
+  '/salty-tv': typeof SaltyTvRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/200-hour-ytt': typeof R200HourYttRoute
+  '/classes': typeof ClassesRoute
+  '/core-reformer': typeof CoreReformerRoute
+  '/gather': typeof GatherRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-sessions': typeof PrivateSessionsRoute
+  '/retreats': typeof RetreatsRoute
+  '/salty-tv': typeof SaltyTvRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/200-hour-ytt': typeof R200HourYttRoute
+  '/classes': typeof ClassesRoute
+  '/core-reformer': typeof CoreReformerRoute
+  '/gather': typeof GatherRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-sessions': typeof PrivateSessionsRoute
+  '/retreats': typeof RetreatsRoute
+  '/salty-tv': typeof SaltyTvRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/200-hour-ytt'
+    | '/classes'
+    | '/core-reformer'
+    | '/gather'
+    | '/memberships'
+    | '/private-sessions'
+    | '/retreats'
+    | '/salty-tv'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/200-hour-ytt'
+    | '/classes'
+    | '/core-reformer'
+    | '/gather'
+    | '/memberships'
+    | '/private-sessions'
+    | '/retreats'
+    | '/salty-tv'
+  id:
+    | '__root__'
+    | '/'
+    | '/200-hour-ytt'
+    | '/classes'
+    | '/core-reformer'
+    | '/gather'
+    | '/memberships'
+    | '/private-sessions'
+    | '/retreats'
+    | '/salty-tv'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R200HourYttRoute: typeof R200HourYttRoute
+  ClassesRoute: typeof ClassesRoute
+  CoreReformerRoute: typeof CoreReformerRoute
+  GatherRoute: typeof GatherRoute
+  MembershipsRoute: typeof MembershipsRoute
+  PrivateSessionsRoute: typeof PrivateSessionsRoute
+  RetreatsRoute: typeof RetreatsRoute
+  SaltyTvRoute: typeof SaltyTvRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/200-hour-ytt': {
+      id: '/200-hour-ytt'
+      path: '/200-hour-ytt'
+      fullPath: '/200-hour-ytt'
+      preLoaderRoute: typeof R200HourYttRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classes': {
+      id: '/classes'
+      path: '/classes'
+      fullPath: '/classes'
+      preLoaderRoute: typeof ClassesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/core-reformer': {
+      id: '/core-reformer'
+      path: '/core-reformer'
+      fullPath: '/core-reformer'
+      preLoaderRoute: typeof CoreReformerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gather': {
+      id: '/gather'
+      path: '/gather'
+      fullPath: '/gather'
+      preLoaderRoute: typeof GatherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memberships': {
+      id: '/memberships'
+      path: '/memberships'
+      fullPath: '/memberships'
+      preLoaderRoute: typeof MembershipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/private-sessions': {
+      id: '/private-sessions'
+      path: '/private-sessions'
+      fullPath: '/private-sessions'
+      preLoaderRoute: typeof PrivateSessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/retreats': {
+      id: '/retreats'
+      path: '/retreats'
+      fullPath: '/retreats'
+      preLoaderRoute: typeof RetreatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/salty-tv': {
+      id: '/salty-tv'
+      path: '/salty-tv'
+      fullPath: '/salty-tv'
+      preLoaderRoute: typeof SaltyTvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R200HourYttRoute: R200HourYttRoute,
+  ClassesRoute: ClassesRoute,
+  CoreReformerRoute: CoreReformerRoute,
+  GatherRoute: GatherRoute,
+  MembershipsRoute: MembershipsRoute,
+  PrivateSessionsRoute: PrivateSessionsRoute,
+  RetreatsRoute: RetreatsRoute,
+  SaltyTvRoute: SaltyTvRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
