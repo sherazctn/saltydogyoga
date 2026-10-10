@@ -378,7 +378,7 @@ function parseEvents(json: unknown): Ev[] {
         title: t,
         ...(d && !isNaN(d.getTime()) ? { date: d } : {}),
         ...(locName ? { location: locName } : {}),
-        ...(priceRaw != null ? { price: String(priceRaw) } : {}),
+        ...(priceRaw != null ? { price: typeof priceRaw === "number" ? `$${priceRaw}` : String(priceRaw) } : {}),
         ...(typeof urlRaw === "string" && urlRaw.startsWith("http") ? { url: urlRaw } : {}),
         ...(typeof imgRaw === "string" && imgRaw.startsWith("http") ? { image: imgRaw } : {}),
       };
