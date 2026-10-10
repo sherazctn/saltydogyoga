@@ -20,7 +20,7 @@ export const Route = createFileRoute("/gather")({
   component: GatherPage,
 });
 
-const CARDS = [
+const CARDS = ([
   {
     title: "Community Classes",
     text: "We believe in making wellness accessible and are thrilled to offer community classes at a sliding scale rate. Classes are taught by teachers in training and new Salty instructors.",
@@ -39,7 +39,7 @@ const CARDS = [
     img: `${W}bdf789_6a9a8ec44e5c4b7d9ec1e8e0f7e0a4d3~mv2.jpg`,
     alt: "Local makers pop-up event at Salty Dog Yoga & Surf, Carolina Beach",
   },
-];
+] as const);
 
 function GatherPage() {
   return (
