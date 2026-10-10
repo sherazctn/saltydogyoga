@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  ArrowUpRight, MapPin, Menu, X, Mail, Phone, Youtube, Facebook, Instagram, ChevronDown,
+  ArrowUpRight, MapPin, Menu, X, Mail, Phone, Youtube, Facebook, Instagram, ChevronDown, Clock,
 } from "lucide-react";
 import logoAsset from "@/assets/logo.png.asset.json";
 import splashAsset from "@/assets/acupuncture.png.asset.json";
@@ -310,31 +310,62 @@ export function Footer() {
     [Facebook, "Facebook", SOCIALS.facebook],
     [Instagram, "Instagram", SOCIALS.instagram],
   ] as const;
+  const explore = FOOTER_NAV.slice(0, 4);
+  const more = FOOTER_NAV.slice(4);
   return (
-    <footer className="bg-navy text-cream">
+    <footer className="relative overflow-hidden bg-navy text-cream">
       <Wave flip className="text-sand" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-3">
-        <div>
-          <img src={LOGO} alt="Salty Dog yoga barre pilates logo" className="h-16 w-auto" />
-          <p className="headline mt-6 text-3xl">come as a student, leave as a friend.</p>
+      <Doodle src={ILL.starfish} className="pointer-events-none absolute -right-8 top-24 w-32 rotate-12 opacity-20 md:w-44" />
+      <Doodle src={ILL.waves} className="pointer-events-none absolute -left-10 bottom-32 w-40 -rotate-6 opacity-15 md:w-56" />
+      <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-16">
+        <div className="flex flex-col items-start justify-between gap-8 border-b border-cream/10 pb-12 md:flex-row md:items-end">
+          <div>
+            <img src={LOGO} alt="Salty Dog yoga barre pilates logo" className="h-20 w-auto" />
+            <p className="headline mt-6 max-w-md text-4xl leading-tight md:text-5xl">come as a student, <span className="text-coral">leave as a friend.</span></p>
+          </div>
+          <Link to="/classes" className="btn btn-coral">Book a Class <ArrowUpRight className="h-4 w-4" /></Link>
         </div>
-        <div className="space-y-3 text-sm text-cream/80">
-          <p className="flex gap-2"><MapPin className="h-4 w-4 shrink-0 text-coral" />915 a N Lake Park Blvd, Carolina Beach, NC 28428</p>
-          <a href="mailto:info@saltydogyogasurf.com" className="flex gap-2 hover:text-coral"><Mail className="h-4 w-4 text-coral" />info@saltydogyogasurf.com</a>
-          <a href="tel:+19107073012" className="flex gap-2 hover:text-coral"><Phone className="h-4 w-4 text-coral" />(910) 707-3012</a>
-          <div className="flex flex-wrap gap-3 pt-4">
-            {socials.map(([I, n, h]) => (
-              <a key={n} href={h} {...EXT} aria-label={n} className="lift grid h-10 w-10 place-items-center rounded-full bg-cream/10 hover:bg-coral"><I className="h-4 w-4" /></a>
-            ))}
-            <a href={SOCIALS.tripadvisor} {...EXT} className="lift grid h-10 place-items-center rounded-full bg-cream/10 px-3 text-[11px] font-bold hover:bg-coral">TripAdvisor</a>
-            <a href={SOCIALS.yelp} {...EXT} className="lift grid h-10 place-items-center rounded-full bg-cream/10 px-3 text-[11px] font-bold hover:bg-coral">Yelp</a>
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <p className="eyebrow !text-seafoam">visit us</p>
+            <div className="mt-4 space-y-3 text-sm text-cream/80">
+              <p className="flex gap-2"><MapPin className="h-4 w-4 shrink-0 text-coral" />915 a N Lake Park Blvd,<br />Carolina Beach, NC 28428</p>
+              <a href="mailto:info@saltydogyogasurf.com" className="flex gap-2 hover:text-coral"><Mail className="h-4 w-4 shrink-0 text-coral" />info@saltydogyogasurf.com</a>
+              <a href="tel:+19107073012" className="flex gap-2 hover:text-coral"><Phone className="h-4 w-4 shrink-0 text-coral" />(910) 707-3012</a>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow !text-seafoam">explore</p>
+            <nav className="mt-4 grid gap-2.5 text-sm">
+              {explore.map((n) => <Link key={n.to} to={n.to} className="w-fit text-cream/80 transition-colors hover:text-coral">{n.label}</Link>)}
+            </nav>
+          </div>
+          <div>
+            <p className="eyebrow !text-seafoam">more salty</p>
+            <nav className="mt-4 grid gap-2.5 text-sm">
+              {more.map((n) => <Link key={n.to} to={n.to} className="w-fit text-cream/80 transition-colors hover:text-coral">{n.label}</Link>)}
+              <a href="https://www.saltydogyogasurf.com/get-salty-tv" {...EXT} className="w-fit text-cream/80 transition-colors hover:text-coral">Salty TV Log In</a>
+            </nav>
+          </div>
+          <div>
+            <p className="eyebrow !text-seafoam">follow along</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {socials.map(([I, n, h]) => (
+                <a key={n} href={h} {...EXT} aria-label={n} className="lift grid h-11 w-11 place-items-center rounded-full border border-cream/15 bg-cream/5 hover:border-coral hover:bg-coral"><I className="h-4 w-4" /></a>
+              ))}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a href={SOCIALS.tripadvisor} {...EXT} className="lift rounded-full border border-cream/15 bg-cream/5 px-3 py-1.5 text-[11px] font-bold hover:border-coral hover:bg-coral">TripAdvisor</a>
+              <a href={SOCIALS.yelp} {...EXT} className="lift rounded-full border border-cream/15 bg-cream/5 px-3 py-1.5 text-[11px] font-bold hover:border-coral hover:bg-coral">Yelp</a>
+            </div>
+            <p className="mt-5 text-xs leading-relaxed text-cream/50">Voted Best Yoga Studio in Wilmington — serving Carolina Beach &amp; beyond.</p>
           </div>
         </div>
-        <nav className="grid grid-cols-2 gap-2 text-sm">
-          {FOOTER_NAV.map((n) => <Link key={n.to} to={n.to} className="text-cream/80 hover:text-coral">{n.label}</Link>)}
-        </nav>
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-cream/10 pt-6 text-xs text-cream/50 md:flex-row">
+          <p>© 2026 Salty Dog Yoga &amp; Surf · Carolina Beach, NC</p>
+          <p className="tracking-widest">yoga · barre · pilates · surf</p>
+        </div>
       </div>
-      <div className="border-t border-cream/10 py-6 text-center text-xs text-cream/50">© 2026 Salty Dog Yoga &amp; Surf</div>
     </footer>
   );
 }
@@ -445,28 +476,48 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
           }));
 
   return (
-    <section className="pb-24">
+    <section className="relative overflow-hidden pb-24">
+      <Doodle src={ILL.shell} className="pointer-events-none absolute -left-6 top-8 w-24 -rotate-12 opacity-30 md:w-32" />
       <div className="mx-auto max-w-7xl px-5">
-        <Reveal className="mb-10">
-          <h2 className="headline text-5xl md:text-7xl">{heading}</h2>
+        <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow">save your spot</p>
+            <h2 className="headline mt-2 text-5xl md:text-7xl">{heading}</h2>
+          </div>
+          <Link to="/classes" className="btn btn-outline-dark !py-2.5 !text-xs">Full Schedule <ArrowUpRight className="h-4 w-4" /></Link>
         </Reveal>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {shown.map((e, i) => (
-            <Reveal key={`${e.t}-${i}`} delay={(i % 3) * 100}>
-              <div className="lift relative flex items-center gap-5 overflow-hidden rounded-lg bg-cream p-5">
-                {fallback && <span className="absolute right-4 top-4 rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold tracking-widest text-muted-foreground">SAMPLE</span>}
-                {e.img && <img src={e.img} alt={e.t} className="h-20 w-20 shrink-0 rounded-md object-cover" />}
-                {!e.img && (
-                  <div className="grid h-20 w-20 shrink-0 place-items-center rounded-md bg-navy text-center text-cream">
-                    <div><div className="text-[10px] tracking-widest text-seafoam">{e.m}</div><div className="headline text-3xl">{e.d}</div></div>
+            <Reveal key={`${e.t}-${i}`} delay={(i % 3) * 100} className="h-full">
+              <div className="lift group relative flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-sm ring-1 ring-navy/5">
+                <div className="relative h-44 overflow-hidden">
+                  {e.img ? (
+                    <img src={e.img} alt={e.t} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  ) : (
+                    <div className="grid h-full w-full place-items-center bg-navy">
+                      <Doodle src={ILL.waves} className="w-32 opacity-40" />
+                    </div>
+                  )}
+                  <div className="absolute left-4 top-4 grid h-16 w-16 place-items-center rounded-md bg-cream/95 text-center shadow-md backdrop-blur">
+                    <div>
+                      <div className="text-[10px] font-bold tracking-widest text-coral">{e.m}</div>
+                      <div className="headline text-2xl leading-none text-navy">{e.d}</div>
+                    </div>
                   </div>
-                )}
-                <div className="min-w-0">
-                  <h3 className="font-serif text-xl leading-tight">{e.t}</h3>
-                  {e.time && <p className="mt-1 text-sm text-muted-foreground">{e.time}</p>}
-                  {e.loc && <p className="text-sm text-muted-foreground">{e.loc}</p>}
-                  {e.price && <p className="text-sm font-semibold text-navy">{e.price}</p>}
-                  <a href={e.url} {...EXT} className="mt-2 inline-block text-xs font-bold uppercase tracking-widest text-coral hover:underline">Book</a>
+                  {e.price && (
+                    <span className="absolute right-4 top-4 rounded-full bg-coral px-3 py-1 text-xs font-bold text-cream shadow-md">{e.price}</span>
+                  )}
+                  {fallback && <span className="absolute bottom-3 right-3 rounded-full bg-navy/70 px-2 py-0.5 text-[10px] font-bold tracking-widest text-cream backdrop-blur">SAMPLE</span>}
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-serif text-2xl leading-tight text-navy">{e.t}</h3>
+                  <div className="mt-2 space-y-1 text-sm text-muted-foreground">
+                    {e.time && <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-coral" />{e.time}</p>}
+                    {e.loc && <p className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-coral" />{e.loc}</p>}
+                  </div>
+                  <div className="mt-auto pt-4">
+                    <a href={e.url} {...EXT} className="btn btn-coral w-full !py-2.5 !text-xs">Book This Event <ArrowUpRight className="h-4 w-4" /></a>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -474,7 +525,7 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
           {events === null && <p className="text-sm text-muted-foreground">Loading events…</p>}
         </div>
         {fallback && (
-          <p className="mt-4 rounded-lg border-2 border-dashed border-input p-4 text-center text-sm text-muted-foreground">
+          <p className="mt-6 rounded-lg border-2 border-dashed border-input p-4 text-center text-sm text-muted-foreground">
             Live Momence events appear here on the final site.
           </p>
         )}
