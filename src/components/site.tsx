@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowUpRight, MapPin, Menu, X, Mail, Phone, Youtube, Facebook, Instagram, ChevronDown,
 } from "lucide-react";
@@ -92,7 +92,18 @@ export function useReveal() {
 }
 
 export function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  return <div className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.disconnect(); } }),
+      { threshold: 0.12 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
 export function Wave({ className = "", flip = false }: { className?: string; flip?: boolean }) {
@@ -367,18 +378,18 @@ function parseEvents(json: unknown): Ev[] {
   return arr
     .map((e): Ev => {
       const t = String(pick(e, ["title", "Title", "name", "Name"]) ?? "").trim();
-      const startRaw = pick(e, ["start", "Start", "startDateTime", "startDate", "StartDate", "startAt"]);
+      const startRaw = pick(e, ["dateTime", "start", "Start", "startDateTime", "startDate", "StartDate", "startAt"]);
       const d = startRaw ? new Date(String(startRaw)) : undefined;
-      const priceRaw = pick(e, ["price", "Price", "cost"]);
-      const urlRaw = pick(e, ["url", "Url", "registrationUrl", "bookingUrl"]);
-      const imgRaw = pick(e, ["image", "Image", "imageUrl", "imageUrlTemplate", "coverImage"]);
+      const priceRaw = pick(e, ["fixedPrice", "price", "Price", "cost"]);
+      const urlRaw = pick(e, ["link", "url", "Url", "registrationUrl", "bookingUrl"]);
+      const imgRaw = pick(e, ["image1", "image", "Image", "imageUrl", "imageUrlTemplate", "coverImage"]);
       const loc = pick(e, ["location"]);
       const locName = typeof loc === "string" ? loc : loc && typeof loc === "object" ? String((loc as Record<string, unknown>)["name"] ?? "") : undefined;
       return {
         title: t,
         ...(d && !isNaN(d.getTime()) ? { date: d } : {}),
         ...(locName ? { location: locName } : {}),
-        ...(priceRaw != null ? { price: String(priceRaw) } : {}),
+        ...(priceRaw != null ? { price: typeof priceRaw === "number" ? `$${priceRaw}` : String(priceRaw) } : {}),
         ...(typeof urlRaw === "string" && urlRaw.startsWith("http") ? { url: urlRaw } : {}),
         ...(typeof imgRaw === "string" && imgRaw.startsWith("http") ? { image: imgRaw } : {}),
       };

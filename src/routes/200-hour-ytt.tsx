@@ -59,7 +59,7 @@ function ApplyModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         <div className="mt-6 rounded-lg border-2 border-dashed border-input bg-sand p-6 text-center text-sm text-muted-foreground">
           Google Form application (embedded in Wix)
         </div>
-        <a href={G.yttForm} {...EXT} className="btn btn-coral mt-6 w-full">Open the Application Form <ArrowUpRight className="h-4 w-4" /></a>
+        <a href={G.yttApply} {...EXT} className="btn btn-coral mt-6 w-full">Open the Application Form <ArrowUpRight className="h-4 w-4" /></a>
       </div>
     </div>
   );

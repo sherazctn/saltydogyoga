@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { EXT, InnerPage, PageHero, SaltyTVBand, Reveal, Doodle, ILL } from "@/components/site";
+import { W, InnerPage, PageHero, SaltyTVBand, Reveal, Doodle, ILL } from "@/components/site";
 
 export const Route = createFileRoute("/salty-tv")({
   head: () => ({
@@ -24,7 +24,7 @@ const FEATURES = [
 function SaltyTvPage() {
   return (
     <InnerPage>
-      <PageHero img={`${EXT.tv}`} alt="Salty TV on-demand yoga classes from Salty Dog Yoga & Surf, Carolina Beach" title="salty tv">
+      <PageHero img={`${W}bdf789_e9b1e65802ee470ca7c00bc856bc4f48~mv2.jpg`} alt="Salty TV on-demand yoga classes from Salty Dog Yoga & Surf, Carolina Beach" title="salty tv">
         <p className="mt-6 max-w-xl text-lg text-cream/85">
           On demand. Anywhere. Anytime. Take Salty Dog with you — yoga, Pilates and barre classes streamed straight to your screen.
         </p>
