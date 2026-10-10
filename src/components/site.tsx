@@ -367,11 +367,11 @@ function parseEvents(json: unknown): Ev[] {
   return arr
     .map((e): Ev => {
       const t = String(pick(e, ["title", "Title", "name", "Name"]) ?? "").trim();
-      const startRaw = pick(e, ["start", "Start", "startDateTime", "startDate", "StartDate", "startAt"]);
+      const startRaw = pick(e, ["dateTime", "start", "Start", "startDateTime", "startDate", "StartDate", "startAt"]);
       const d = startRaw ? new Date(String(startRaw)) : undefined;
-      const priceRaw = pick(e, ["price", "Price", "cost"]);
-      const urlRaw = pick(e, ["url", "Url", "registrationUrl", "bookingUrl"]);
-      const imgRaw = pick(e, ["image", "Image", "imageUrl", "imageUrlTemplate", "coverImage"]);
+      const priceRaw = pick(e, ["fixedPrice", "price", "Price", "cost"]);
+      const urlRaw = pick(e, ["link", "url", "Url", "registrationUrl", "bookingUrl"]);
+      const imgRaw = pick(e, ["image1", "image", "Image", "imageUrl", "imageUrlTemplate", "coverImage"]);
       const loc = pick(e, ["location"]);
       const locName = typeof loc === "string" ? loc : loc && typeof loc === "object" ? String((loc as Record<string, unknown>)["name"] ?? "") : undefined;
       return {
