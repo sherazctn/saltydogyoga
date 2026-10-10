@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { EXT, InnerPage, PageHero, SaltyTVBand, Reveal, Doodle, ILL } from "@/components/site";
+import { W, InnerPage, PageHero, SaltyTVBand, Reveal, Doodle, ILL } from "@/components/site";
 
 export const Route = createFileRoute("/salty-tv")({
   head: () => ({
