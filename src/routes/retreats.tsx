@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plane, CalendarDays, BedDouble, UtensilsCrossed } from "lucide-react";
 import { EXT, W, InnerPage, PageHero, Reveal, Doodle, ILL } from "@/components/site";
 
-const HERO = `${W}b22899_0882eb9c2e2b4512911a5be7e13c5ba0~mv2.jpg`;
+const HERO = `${W}bdf789_af7da5f3a17f4cc89ffab9e2d3ee4d62~mv2.jpg`;
 
 export const Route = createFileRoute("/retreats")({
   head: () => ({
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/retreats")({
 
 const PERKS = [
   { icon: Plane, t: "Handpicked locations — from our own Carolina Beach coast to international shores." },
-  { icon: CalendarDays, t: "Daily yoga, surf and movement — move with purpose every day." },
+  { icon: CalendarDays, t: "Daily yoga and movement — move with purpose every day." },
   { icon: BedDouble, t: "Beautiful accommodations where you can unplug and unwind." },
   { icon: UtensilsCrossed, t: "Delicious meals, local culture and salty adventures with new friends." },
 ];
@@ -53,7 +53,7 @@ function RetreatsPage() {
             </div>
             <div className="relative">
               <Doodle src={ILL.waves} className="-top-10 right-4 w-24 rotate-6 opacity-90" />
-              <img src={`${W}bdf789_9a7bc3b9c46a4c4e8fd3f2f4c6e2a4c7~mv2.jpg`} alt="Sunset beach yoga during a retreat in Carolina Beach, NC" className="lift aspect-[4/3] w-full rounded-lg object-cover" />
+              <img src={HERO} alt="Salty Dog yoga retreat by the sea" className="lift aspect-[4/3] w-full rounded-lg object-cover" />
             </div>
           </Reveal>
         </div>

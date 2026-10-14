@@ -59,12 +59,12 @@ function PlanCard({ p, delay }: { p: Plan; delay: number }) {
     <Reveal delay={delay} className="h-full">
       <div className="lift relative flex h-full flex-col rounded-lg bg-cream p-7">
         {p.badge && <span className="absolute right-4 top-4 rounded-full bg-coral px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-cream">{p.badge}</span>}
-        <h3 className="headline pr-16 text-2xl">{p.name}</h3>
-        <div className="mt-3 flex items-baseline gap-1">
+        <h3 className="headline min-h-20 pt-5 text-2xl">{p.name}</h3>
+        <div className="mt-3 flex flex-wrap items-baseline gap-2">
           <span className="headline text-5xl">{p.price}</span>
           {p.per && <span className="text-sm text-muted-foreground">{p.per}</span>}
         </div>
-        {p.note && <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.note}</p>}
+        <div className="flex-1 pt-3">{p.note && <p className="text-sm leading-relaxed text-muted-foreground">{p.note}</p>}</div>
         {p.to ? (
           <Link to={p.to} className="btn btn-coral mt-6 w-full">{p.cta}</Link>
         ) : (

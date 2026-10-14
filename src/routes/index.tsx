@@ -142,7 +142,7 @@ function Welcome() {
         <Reveal className="relative">
           <Doodle src={ILL.sunglasses} className="-top-10 right-6 w-20 rotate-12 md:w-24" />
           <p className="eyebrow text-coral">welcome to salty</p>
-          <h2 className="headline mt-4 text-5xl md:text-7xl">Salty Dog Yoga &amp; Surf</h2>
+          <h2 className="headline mt-4 text-5xl md:text-7xl">Salty Dog</h2>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
             Situated by the sea, we are a welcoming studio offering Pilates reformer, yoga and Pilates mat classes with a laid back island vibe and a passion for movement, wellness, play and the great outdoors. We offer classes in studio, on the beach and on demand with Salty TV because we know variety is the spice of life! Join us as we seek ways to connect and inspire our community.
           </p>

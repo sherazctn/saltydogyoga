@@ -47,9 +47,9 @@ function PrivateSessionsPage() {
                 <h2 className="headline mt-3 text-4xl md:text-5xl">pilates equipment privates</h2>
                 <ul className="mt-8 divide-y divide-cream/10 text-sm">
                   {PILATES_PRIVATES.map(([n, dur, price]) => (
-                    <li key={n} className="flex items-start justify-between gap-4 py-3">
+                    <li key={n} className={`gap-4 py-3 ${n === "Group Private Session" ? "grid" : "flex items-start justify-between"}`}>
                       <span>{n}{dur && <span className="block text-cream/60">{dur}</span>}</span>
-                      <span className="shrink-0 font-semibold text-seafoam">{price}</span>
+                      <span className="max-w-full font-semibold text-seafoam">{price}</span>
                     </li>
                   ))}
                 </ul>
@@ -59,7 +59,7 @@ function PrivateSessionsPage() {
                   <Link to="/core-reformer" className="text-sm underline underline-offset-4 hover:text-coral">See all reformer pricing</Link>
                 </div>
               </div>
-              <img src={`${W}11062b_784435cef2684bf6a706b1ef09fc0ac2~mv2.jpg`} alt="Private Pilates reformer equipment session in Carolina Beach, NC" className="lift aspect-[4/3] w-full rounded-lg object-cover" />
+              <img src={`${W}be5110_168048bef2dc4e58863152c92f6a5fdd~mv2.jpg`} alt="Pilates reformer equipment session in Carolina Beach, NC" className="lift aspect-[4/3] min-w-0 w-full rounded-lg object-cover" />
             </div>
           </Reveal>
 

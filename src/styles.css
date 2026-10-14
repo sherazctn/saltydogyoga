@@ -42,7 +42,9 @@
   --radius: 24px;
   --sand: oklch(0.954 0.017 78);      /* #F6EFE4 */
   --navy: oklch(0.302 0.06 247);      /* #14304A */
-  --coral: oklch(0.69 0.135 40);      /* #E9805F */
+  --coral: oklch(0.85 0.15 88);      /* sunshine yellow accent; legacy token name */
+  --accent-ink: var(--navy);
+  --accent-hover: oklch(0.79 0.15 88);
   --seafoam: oklch(0.885 0.04 175);   /* #BFE0D8 */
   --cream: oklch(0.985 0.006 80);
   --background: var(--sand);
@@ -52,7 +54,7 @@
   --popover: var(--cream);
   --popover-foreground: var(--navy);
   --primary: var(--coral);
-  --primary-foreground: var(--cream);
+  --primary-foreground: var(--navy);
   --secondary: var(--seafoam);
   --secondary-foreground: var(--navy);
   --muted: oklch(0.92 0.02 78);
@@ -125,9 +127,13 @@
 }
 @utility btn-coral {
   background: var(--coral);
-  color: var(--cream);
-  &:hover { background: oklch(0.64 0.14 40); }
+  color: var(--accent-ink);
+  &:hover { background: var(--accent-hover); }
 }
+
+/* Yellow needs dark lettering, including filled badges and hovered links. */
+.bg-coral { color: var(--accent-ink); }
+.hover\:bg-coral:hover { color: var(--accent-ink); }
 @utility btn-outline-light {
   border: 1.5px solid var(--cream);
   color: var(--cream);
