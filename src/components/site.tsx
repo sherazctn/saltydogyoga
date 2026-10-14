@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/logo.png.asset.json";
 import splashAsset from "@/assets/acupuncture.png.asset.json";
+import { isSpecialEvent } from "@/lib/events";
 
 export const EXT = { target: "_blank", rel: "noopener noreferrer" } as const;
 export const S = "https://www.saltydogyogasurf.com";
@@ -371,15 +372,15 @@ export function Footer() {
 }
 
 export function openApply() {
-  window.dispatchEvent(new Event("salty-open-apply"));
+  window.open(G.yttApply, "_blank", "noopener,noreferrer");
 }
 
 export function MobileBar({ variant = "default" }: { variant?: "default" | "ytt" }) {
   if (variant === "ytt") {
     return (
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-border bg-sand/95 p-3 backdrop-blur md:hidden">
-        <a href="#apply" onClick={(e) => { e.preventDefault(); openApply(); }} className="btn btn-outline-dark !px-2 !py-3 !text-[11px]">Apply Now</a>
-        <a href="#schedule" className="btn btn-coral !px-2 !py-3 !text-[11px]">View Dates</a>
+        <a href={G.yttApply} {...EXT} className="btn btn-outline-dark !px-2 !py-3 !text-[11px]">Apply Now</a>
+        <a href="#dates" className="btn btn-coral !px-2 !py-3 !text-[11px]">View Dates</a>
       </div>
     );
   }
@@ -407,6 +408,7 @@ function parseEvents(json: unknown): Ev[] {
     return undefined;
   };
   return arr
+    .filter(isSpecialEvent)
     .map((e): Ev => {
       const t = String(pick(e, ["title", "Title", "name", "Name"]) ?? "").trim();
       const startRaw = pick(e, ["dateTime", "start", "Start", "startDateTime", "startDate", "StartDate", "startAt"]);
@@ -419,6 +421,7 @@ function parseEvents(json: unknown): Ev[] {
       return {
         title: t,
         ...(d && !isNaN(d.getTime()) ? { date: d } : {}),
+        ...(d && !isNaN(d.getTime()) ? { time: d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" }) } : {}),
         ...(locName ? { location: locName } : {}),
         ...(priceRaw != null ? { price: typeof priceRaw === "number" ? `$${priceRaw}` : String(priceRaw) } : {}),
         ...(typeof urlRaw === "string" && urlRaw.startsWith("http") ? { url: urlRaw } : {}),
@@ -446,13 +449,13 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((json) => {
         if (dead) return;
-        const now = Date.now() - 86400000;
+        const now = Date.now();
         const list = parseEvents(json)
           .filter((e) => !e.date || e.date.getTime() >= now)
           .sort((a, b) => (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0))
           .slice(0, count);
         if (list.length) setEvents(list);
-        else { setEvents([]); setFallback(true); }
+        else { setEvents([]); }
       })
       .catch(() => { if (!dead) { setEvents([]); setFallback(true); } });
     return () => { dead = true; };
@@ -462,7 +465,7 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
   const shown: Card[] =
     events === null
       ? []
-      : fallback || events.length === 0
+      : fallback
         ? SAMPLES.slice(0, count).map((s) => ({ ...s, url: M.momence }))
         : events.map((e) => ({
             m: e.date ? e.date.toLocaleDateString("en-US", { month: "short" }).toUpperCase() : "—",
@@ -523,6 +526,7 @@ export function EventsSection({ count, heading = "upcoming events" }: { count: n
             </Reveal>
           ))}
           {events === null && <p className="text-sm text-muted-foreground">Loading events…</p>}
+          {events?.length === 0 && !fallback && <p className="text-muted-foreground md:col-span-3">New workshops and special events will be announced here soon.</p>}
         </div>
         {fallback && (
           <p className="mt-6 rounded-lg border-2 border-dashed border-input p-4 text-center text-sm text-muted-foreground">

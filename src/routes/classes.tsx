@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Smartphone, Clock, Car, ArrowUpRight } from "lucide-react";
 import { EXT, W, InnerPage, PageHero, EventsSection, Faq, Reveal, Doodle, ILL } from "@/components/site";
+import { CLASS_POLICIES } from "@/lib/site-rules";
 
 const HERO = `${W}bdf789_2aa40bbe43ca4ce7bb61352908eeda16~mv2.jpg`;
 
@@ -40,7 +41,8 @@ const WEEK = [
 const INFO = [
   { icon: Smartphone, title: "Download the Momence App", text: "Download the Momence App for iOS or Android for the best experience on mobile." },
   { icon: Clock, title: "Arrive a few minutes early", text: "Please arrive a few minutes before class time as doors will be locked at class start time." },
-  { icon: Car, title: "Parking", text: "Additional parking is located around the back of the building near Bowman's seafood." },
+  { icon: Car, title: "Parking", text: "Parking is available around the front and the back of the building." },
+  { icon: Clock, title: "Cancellations & the fine print", text: `Please cancel mat classes at least ${CLASS_POLICIES.matCancellationHours} hours before class and workshops at least ${CLASS_POLICIES.workshopCancellationHours} hours before the event. All sales are final.` },
 ];
 
 function ClassesPage() {
@@ -97,7 +99,7 @@ function ClassesPage() {
           <Reveal>
             <h2 className="headline text-5xl md:text-7xl">before you come</h2>
           </Reveal>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {INFO.map((c, i) => (
               <Reveal key={c.title} delay={i * 100}>
                 <div className="lift h-full rounded-lg bg-cream p-7">
@@ -121,9 +123,9 @@ function ClassesPage() {
       </section>
 
       <Faq items={[
-        { q: "Do I need experience?", a: "Not at all! Our mat classes are for ALL levels. Teachers offer options and modifications so you can move at your own pace — come as a student, leave as a friend." },
-        { q: "What should I bring?", a: "Just yourself and some water. Mats and props are available at the studio, and beach yoga needs only a towel or beach chair." },
-        { q: "Where do I park?", a: "Park in front of the studio on N Lake Park Blvd, or use the additional parking around the back of the building near Bowman's seafood." },
+        { q: "Do I need experience?", a: "Not at all for our foundational mat classes! However, for our Flow, Power, and Strength classes, having a little previous mat or yoga experience helps you feel more confident with the faster pace and stronger movements." },
+        { q: "What should I bring?", a: "Just yourself and some water. Mats and props are available at the studio, and beach yoga needs only a towel." },
+        { q: "Where do I park?", a: "Parking is available around the front of the building and around the back of the building." },
         { q: "Can I drop in?", a: "Yes! In studio mat classes are $18 and beach yoga is $15. Reformer equipment classes require advance booking — see our Core Reformer page." },
       ]} />
     </InnerPage>
