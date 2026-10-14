@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { X, ArrowUpRight } from "lucide-react";
-import { EXT, W, G, InnerPage, PageHero, Reveal, Doodle, ILL, openApply } from "@/components/site";
+import { ArrowUpRight, Check } from "lucide-react";
+import { EXT, W, G, InnerPage, PageHero, Reveal } from "@/components/site";
+import { TRAINING } from "@/lib/site-rules";
 
-const HERO = `${W}be5110_168048bef2dc4e58863152c92f6a5fdd~mv2.jpg`;
+const HERO = `${W}b22899_c69944e0b931474cb01e25e77f69cc13~mv2.jpg`;
 
 export const Route = createFileRoute("/200-hour-ytt")({
   head: () => ({
@@ -21,19 +21,22 @@ export const Route = createFileRoute("/200-hour-ytt")({
   component: YttPage,
 });
 
-const MODULES: [string, string][] = [
-  ["Module 1", "Feb 6-8, Mar 6-8, Apr 10-12, May 1-3"],
-  ["Module 2", "May 29-31, Jun 19-21, Jul 17-19, Aug 14-16"],
-  ["Module 3", "Sep 11-13, Oct 9-11, Nov 6-8, Dec 4-6"],
-  ["Module 4", "Feb 5-7, Mar 5-7, Apr 9-11, May 14-16"],
+const WEEKENDS = [
+  ["Feb 26 – 28", "Immersion Weekend 1"],
+  ["Mar 12 – 14", "Immersion Weekend 2", "Mar 24 evening session"],
+  ["Apr 9 – 11", "Immersion Weekend 3"],
+  ["May 21 – 23", "Immersion Weekend 4", "May 5 evening session"],
+  ["Jun 4 – 6", "Immersion Weekend 5"],
+  ["Jul 16 – 18", "Immersion Weekend 6", "Jul 28 evening session"],
+  ["Aug 27 – 29", "Immersion Weekend 7"],
+  ["Sep 10 – 12", "Immersion Weekend 8 · Final Weekend"],
 ];
-
-const WHY = [
-  { h: "Affordable, Flexible & Fun", t: "We know it's a lot of time and money to commit to, so we've designed our training to be as affordable as possible. Our flexible format allows you to go at your own pace, and it's fun!" },
-  { h: "A One of a Kind Experience", t: "Training can be completed in as little as 8 months or take up to 3 years if you want to go slower. You can also take individual modules at other studios and have them counted toward your 200 hours with us." },
-  { h: "Designed for the Salty Lifestyle", t: "Live near the beach? Headed on vacation? Take your time and enjoy the experience. Modules are designed so you can pick up where you left off — even if life gets busy." },
+const HIGHLIGHTS = [
+  ["Yoga Alliance 5-Star Certified", "Full eligibility for RYT-200 registration upon graduation."],
+  ["Once-a-Year Cohort", "An intimate immersion fostering a close-knit, supportive community (sangha)."],
+  ["Intentionally Spacious", "A spacious timeline built for deep digestion, practice, and life integration."],
+  ["Comprehensive Hybrid Model", `${TRAINING.liveHours} hours of live instruction + ${TRAINING.recordedHours} hours of on-demand self-paced learning.`],
 ];
-
 const CURRICULUM = [
   { h: "Techniques, Training & Practice", t: "Learn the asanas, pranayamas, kriyas, chanting, mantra, meditation and other traditional yoga techniques." },
   { h: "Teaching Methodology", t: "Includes sequencing, the qualities of a teacher, the student's process of learning, and business aspects of teaching yoga." },
@@ -42,106 +45,65 @@ const CURRICULUM = [
   { h: "Practicum", t: "Practice teaching, receiving feedback, observing others teaching and hearing/giving assists." },
 ];
 
-function ApplyModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-[80] grid place-items-center bg-navy/70 p-4" role="dialog" aria-modal="true" aria-label="Teacher training application">
-      <div className="relative w-full max-w-lg rounded-xl bg-cream p-8">
-        <button onClick={onClose} aria-label="Close application" className="absolute right-4 top-4 rounded-full p-2 hover:bg-sand"><X className="h-5 w-5" /></button>
-        <p className="eyebrow text-coral">200 hour ytt</p>
-        <h3 className="headline mt-2 text-4xl">apply now</h3>
-        <div className="mt-6 rounded-lg border-2 border-dashed border-input bg-sand p-6 text-center text-sm text-muted-foreground">
-          Google Form application (embedded in Wix)
-        </div>
-        <a href={G.yttApply} {...EXT} className="btn btn-coral mt-6 w-full">Open the Application Form <ArrowUpRight className="h-4 w-4" /></a>
-      </div>
-    </div>
-  );
+function ApplyLink({ className = "btn btn-coral" }: { className?: string }) {
+  return <a href={G.yttApply} {...EXT} className={className}>Apply Now <ArrowUpRight className="h-4 w-4" /></a>;
 }
 
 function YttPage() {
-  const [applyOpen, setApplyOpen] = useState(false);
-  useEffect(() => {
-    const h = () => setApplyOpen(true);
-    window.addEventListener("salty-open-apply", h);
-    return () => window.removeEventListener("salty-open-apply", h);
-  }, []);
   return (
     <InnerPage yttBar>
-      <PageHero img={HERO} alt="200 hour yoga teacher training at Salty Dog Yoga & Surf in Carolina Beach, NC" title="200 hour yoga teacher training">
-        <p className="mt-4 max-w-xl text-xl text-cream/90">Affordable. Flexible. Fun.</p>
-        <p className="mt-2 max-w-xl text-cream/80">Are you looking to become a Registered Yoga Teacher? Do you want to deepen your yoga practice and understanding? Look no further — Salty Dog Yoga's 200 hour Yoga Teacher Training has been designed to make training accessible to everyone.</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <button onClick={openApply} className="btn btn-coral">Apply Now</button>
-          <a href="#dates" className="btn btn-outline-light">View Dates</a>
-        </div>
+      <PageHero img={HERO} alt="Yoga teacher training cohort at Salty Dog in Carolina Beach, NC" title="200 hour yoga teacher training">
+        <p className="mt-6 max-w-xl text-xl text-cream/90">Deepen Your Practice. Expand Your Life.</p>
+        <div className="mt-8 flex flex-wrap gap-3"><ApplyLink /><a href="#dates" className="btn btn-outline-light">View Dates</a></div>
       </PageHero>
 
       <section className="py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5">
-          <Reveal>
-            <h2 className="headline text-center text-4xl md:text-6xl">why salty dog?</h2>
+          <Reveal className="max-w-4xl">
+            <h2 className="headline text-4xl md:text-6xl">deepen your practice. expand your life.</h2>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">Ready to bring your practice off the mat and into the rest of your life? Salty Dog Yoga’s Yoga Alliance five star 200-Hour Yoga Teacher Training goes beyond the poses. It’s an immersive deep dive into a complete yoga lifestyle, dynamic alignment, and self-discovery. Designed to be flexible and fun, this program is perfect whether you're aiming to become a Registered Yoga Teacher or simply looking to step into a fuller, more conscious way of living.</p>
           </Reveal>
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {WHY.map((w, i) => (
-              <Reveal key={w.h} delay={i * 100}>
-                <div className="lift h-full rounded-lg bg-cream p-7 text-center">
-                  <h3 className="font-serif text-2xl text-navy">{w.h}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{w.t}</p>
-                </div>
-              </Reveal>
-            ))}
+          <Reveal className="mt-16"><p className="eyebrow text-coral">your annual immersion</p><h2 className="headline mt-3 text-4xl md:text-6xl">program highlights</h2></Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            {HIGHLIGHTS.map(([h, t], i) => <Reveal key={h} delay={i * 70} className="h-full"><div className="h-full rounded-lg bg-cream p-7"><Check className="h-6 w-6 text-coral" /><h3 className="mt-4 font-serif text-2xl">{h}</h3><p className="mt-3 leading-relaxed text-muted-foreground">{t}</p></div></Reveal>)}
           </div>
         </div>
       </section>
 
-      <section id="dates" className="grain py-20">
+      <section id="dates" className="grain scroll-mt-24 py-20">
         <div className="mx-auto max-w-5xl px-5">
-          <Reveal className="relative text-center">
-            <Doodle src={ILL.waves} className="-top-10 right-1/4 w-24 rotate-6 opacity-90" />
-            <p className="eyebrow text-coral">training modules</p>
-            <h2 className="headline mt-3 text-4xl md:text-6xl">upcoming dates</h2>
+          <Reveal><p className="eyebrow text-coral">training weekends</p><h2 className="headline mt-3 text-4xl md:text-6xl">training dates &amp; schedule</h2></Reveal>
+          <Reveal className="mt-8 border-y border-border py-6">
+            <h3 className="font-serif text-2xl">Standard Weekend Hours</h3>
+            <div className="mt-4 grid gap-3 text-sm sm:grid-cols-3"><p><strong>Fridays</strong><br />5:30 PM – 9:00 PM</p><p><strong>Saturdays</strong><br />8:00 AM – 6:00 PM</p><p><strong>Sundays</strong><br />8:00 AM – 4:00 PM</p></div>
+            <p className="mt-4 text-sm text-muted-foreground">Plus 4 Wednesday evening sessions, 5:30 PM – 9:00 PM.</p>
           </Reveal>
-          <Reveal delay={100} className="mt-10 overflow-hidden rounded-lg bg-cream">
-            {MODULES.map(([mod, dates], i) => (
-              <div key={mod} className={`flex flex-col justify-between gap-1 p-6 sm:flex-row sm:items-center ${i !== 0 ? "border-t border-border" : ""}`}>
-                <span className="headline text-2xl">{mod}</span>
-                <span className="text-sm text-muted-foreground">{dates}</span>
-              </div>
-            ))}
-          </Reveal>
-          <Reveal delay={150} className="mt-6 text-center">
-            <button onClick={openApply} className="btn btn-coral">Apply Now</button>
-          </Reveal>
+          <Reveal className="mt-10"><h3 className="font-serif text-2xl">2026 Cohort Weekend Dates</h3><div className="mt-5 divide-y divide-border">{WEEKENDS.map(([date, label, evening]) => <div key={date} className="grid gap-2 py-5 sm:grid-cols-2"><p className="font-serif text-2xl">{date}</p><div><p className="font-medium">{label}</p>{evening && <p className="mt-1 text-sm text-muted-foreground">{evening}</p>}</div></div>)}</div></Reveal>
+          <Reveal className="mt-8"><ApplyLink /></Reveal>
         </div>
       </section>
 
       <section className="py-20">
-        <div className="mx-auto max-w-4xl px-5">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2">
           <Reveal>
-            <p className="eyebrow text-coral">what you'll learn</p>
-            <h2 className="headline mt-3 text-4xl md:text-6xl">curriculum</h2>
+            <p className="eyebrow text-coral">an investment in you</p><h2 className="headline mt-3 text-4xl md:text-6xl">flexible investment &amp; pricing</h2>
+            <p className="mt-6 text-lg text-muted-foreground">Learning shouldn't feel rushed or overwhelming. Our 200-hour training offers manageable stages and flexible payment options.</p>
+            <div className="mt-8 space-y-5 text-muted-foreground"><p><strong className="text-navy">Pay As You Go:</strong> Pay upfront in full or in stages.</p><p><strong className="text-navy">Secure Your Spot:</strong> A ${TRAINING.deposit} non-refundable deposit holds your place in the annual cohort.</p><p><strong className="text-navy">Scholarships Available:</strong> Limited scholarship rates offered per cohort to support accessibility.</p></div>
           </Reveal>
-          <div className="mt-10 space-y-4">
-            {CURRICULUM.map((c, i) => (
-              <Reveal key={c.h} delay={i * 80}>
-                <div className="rounded-lg bg-cream p-6">
-                  <h3 className="font-serif text-xl">{c.h}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.t}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal className="border-l-4 border-coral bg-cream p-8">
+            <p className="eyebrow">200-hour training</p><p className="headline mt-4 text-6xl">${TRAINING.price.toLocaleString("en-US")}</p><p className="mt-3 text-sm text-muted-foreground">A {TRAINING.cardFeePercent}% fee is added to card payments.</p>
+            <h3 className="mt-8 font-serif text-2xl">Cost includes</h3><ul className="mt-5 space-y-5 text-sm leading-relaxed text-muted-foreground">
+              <li><strong className="text-navy">Comprehensive Training Manuals:</strong> Printed and downloadable manuals complete with lesson plans, templates, and detailed technique breakdown pages for traditional Hatha postures and meditations.</li>
+              <li><strong className="text-navy">{TRAINING.liveHours} Hours of Live Training:</strong> In-person/live sessions guided by expert trainers.</li>
+              <li><strong className="text-navy">{TRAINING.recordedHours} Hours of Recorded Content:</strong> Pre-recorded technique training covering postures, breathing techniques (pranayama), meditation, and yogic philosophy.</li>
+              <li><strong className="text-navy">Ten class pass:</strong> Keep your practice growing, or receive {TRAINING.membershipDiscountPercent}% off your monthly membership for Good Vibe Tribe members while in the training.</li>
+            </ul>
+            <p className="mt-8 font-serif text-xl">We like to keep things intimate so space is limited. Apply today.</p><ApplyLink className="btn btn-coral mt-6" /><p className="mt-4 text-xs text-muted-foreground">A nonrefundable ${TRAINING.deposit} deposit is required to secure your spot in the training.</p>
+          </Reveal>
         </div>
       </section>
 
-      <ApplyModal open={applyOpen} onClose={() => setApplyOpen(false)} />
+      <section className="py-20"><div className="mx-auto max-w-4xl px-5"><Reveal><p className="eyebrow text-coral">what you'll learn</p><h2 className="headline mt-3 text-4xl md:text-6xl">curriculum</h2></Reveal><div className="mt-10 space-y-4">{CURRICULUM.map((c, i) => <Reveal key={c.h} delay={i * 80}><div className="rounded-lg bg-cream p-6"><h3 className="font-serif text-xl">{c.h}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.t}</p></div></Reveal>)}</div><Reveal className="mt-10"><a href={G.yttInterest} {...EXT} className="btn btn-outline-dark">Join the Interest List <ArrowUpRight className="h-4 w-4" /></a></Reveal></div></section>
     </InnerPage>
   );
 }
